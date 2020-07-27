@@ -1,5 +1,3 @@
-import geninfo
-import socialmedia as sm
 import accounts
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
