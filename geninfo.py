@@ -1,6 +1,6 @@
 class GenInfo:
     def __init__(self):
-        pass
+        raise NotImplementedError("Do not create raw GenInfo Objects.")
 
     def gen_full_name(self):
         pass
