@@ -5,7 +5,7 @@ class GenInfo:
     def gen_full_name(self):
         pass
 
-    def gen_gmail(self):
+    def gen_username(self):
         pass
 
     def gen_password(self):
