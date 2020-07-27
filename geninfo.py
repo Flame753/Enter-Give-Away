@@ -10,3 +10,7 @@ class GenInfo:
 
     def gen_password(self):
         pass
+
+
+if __name__ == "__main__":
+    pass

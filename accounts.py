@@ -13,3 +13,7 @@ class Accounts:
 
     def remove_account(self, full_name, password):
         pass
+
+
+if __name__ == "__main__":
+    pass

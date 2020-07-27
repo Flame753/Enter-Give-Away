@@ -1,6 +1,3 @@
-import geninfo
-
-
 class CreateSocialMedia:
     def __init__(self, media_type, full_name, username, password):
         self.full_name = full_name
@@ -10,3 +7,7 @@ class CreateSocialMedia:
 
     def create_gmail(self):
         pass
+
+
+if __name__ == "__main__":
+    pass
