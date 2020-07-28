@@ -70,22 +70,16 @@ class GenInfo:
         go_random = driver.find_element_by_id("fill_all")
         go_random.click()
 
-        self.first_name = driver.find_element_by_name("first_name").get_attribute("value")
-        self.middle_name = driver.find_element_by_name("middle_name").get_attribute("value")
-        self.last_name = driver.find_element_by_name("surname").get_attribute("value")
-        self.gender = driver.find_element_by_name("gender").get_attribute("value")
-        self.birth_year = driver.find_element_by_name("birth_year").get_attribute("value")
-        self.adj1 = driver.find_element_by_name("adj1").get_attribute("value")
-        self.adj2 = driver.find_element_by_name("adj2").get_attribute("value")
-        self.location = driver.find_element_by_name("location").get_attribute("value")
-        self.job = driver.find_element_by_name("job").get_attribute("value")
-        self.likes = driver.find_element_by_name("likes").get_attribute("value")
+        data = {}
+        fields = ['first_name', 'middle_name', 'surname', 'gender',
+                  'birth_year', 'adj1', 'adj2', 'location', 'job', 'likes']
+        for field in fields:
+            data[field] = driver.find_element_by_name(field).get_attribute("value")
 
         driver.find_element_by_name("allow_underscores").click()
         driver.find_element_by_name("allow_dots").click()
-        driver.find_element_by_id('quick_submit').click()
-        time.sleep(15)
-        driver.quit()
+        driver.find_element_by_id("quick_submit").click()
+        self.username = driver.find_elements_by_class_name("names")
 
 
 if __name__ == "__main__":
@@ -100,3 +94,4 @@ if __name__ == "__main__":
     #print(test.username, test.password)
 
     test.website()
+    print(test.username)
