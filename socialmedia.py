@@ -1,42 +1,30 @@
-from string import capwords
+from geninfo import get_website_info
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
-class SocialMedia:
-    def __init__(self, first_name, last_name, username, password):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.username = username
-        self.password = password
-        self.PATH = "/usr/local/bin/chromedriver"
-        self.driver = webdriver.Chrome(self.PATH)
+def create_gmail(data, phone):
+    PATH = "/usr/local/bin/chromedriver"
+    driver = webdriver.Chrome(PATH)
+    driver.get('https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp')
 
-    def create_gmail(self):
-        self.driver.get(
-            'https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp')
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "view_container"))
+    )
 
-        first_name = self.driver.find_element_by_id("firstName")
-        first_name.send_keys(self.first_name)
-        first_name.send_keys(Keys.RETURN)
+    # Entering all the Information into the Google Account to Create Account
+    fields = {'firstName': 'first_name', 'lastName': 'surname', 'username': 'username',
+              'Passwd': 'password', 'ConfirmPasswd': 'password'}
 
-        last_name = self.driver.find_element_by_id("lastName")
-        last_name.send_keys(self.last_name)
-        last_name.send_keys(Keys.RETURN)
-
-        username = self.driver.find_element_by_id("username")
-        username.send_keys(self.username)
-        username.send_keys(Keys.RETURN)
-
-        password = self.driver.find_element_by_name("Passwd")
-        password.send_keys(self.password)
-        password.send_keys(Keys.RETURN)
-
-        confirm = self.driver.find_element_by_name("ConfirmPasswd")
-        confirm.send_keys(self.password)
-        confirm.send_keys(Keys.RETURN)
+    for field, value in fields.items():
+        search = driver.find_element_by_id(field)
+        search.send_keys(data.get(value))
+        search.send_keys(Keys.RETURN)
 
 
 if __name__ == "__main__":
-    gmail = SocialMedia("Anna love", "anna12723492", "1234Anna")
-    gmail.create_gmail()
+    create_gmail(get_website_info(), 742)
+
