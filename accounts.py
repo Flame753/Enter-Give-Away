@@ -33,10 +33,15 @@ class Accounts:
         self.cur.execute(f'INSERT INTO {self.table} {tuple(data.keys())} VALUES {tuple(data.values())};')
         self.conn.commit()
 
-    def retrieve_info(self, kind):
-        pass
+    def retrieve_info(self, id, kind):
+        try:
+            self.cur.execute(f'SELECT {kind} FROM {self.table} WHERE id = ?;', (id,))
+            data = self.cur.fetchone()
+            return data
+        except sqlite3.OperationalError:
+            print(f"There is not such value: {kind}")
 
-    def remove_account(self, full_name, password):
+    def remove_account(self, id, password):
         pass
 
     def close_file(self):
@@ -50,5 +55,7 @@ class Accounts:
 
 if __name__ == "__main__":
     test = Accounts()
-    test.add_account(get_website_info())
+    #test.add_account(get_website_info())
     test.dis_all()
+    print(test.retrieve_info(1, "first_namse"))
+    print(test.retrieve_info(1, "gender"))
