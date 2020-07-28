@@ -11,8 +11,8 @@ class Accounts:
         self.conn = sqlite3.connect(self.name)
         self.cur = self.conn.cursor()
         # Create a Table
-        self.cur.execute(f'CREATE TABLE IF NOT EXISTS {self.table} ('
-                         'id INTEGER, '
+        self.cur.execute(f'CREATE TABLE IF NOT EXISTS {self.table}('
+                         'id INTEGER PRIMARY KEY, '
                          'first_name TEXT, '
                          'middle_name TEXT, '
                          'surname TEXT, '
@@ -30,9 +30,7 @@ class Accounts:
         self.conn.commit()
 
     def add_account(self, data):
-        #for key, value in data.items():
-            #print(key, value)
-        self.cur.execute(f'INSERT INTO {self.table} VALUES 1;')
+        self.cur.execute(f'INSERT INTO {self.table} {tuple(data.keys())} VALUES {tuple(data.values())};')
         self.conn.commit()
 
     def retrieve_info(self, kind):
