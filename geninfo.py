@@ -22,7 +22,11 @@ def get_website_info():
         data[field] = driver.find_element_by_name(field).get_attribute("value")
 
     # Setting up and going to the next page to Create the Username
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.NAME, "allow_underscores")))
     driver.find_element_by_name("allow_underscores").click()
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.NAME, "allow_dots")))
     driver.find_element_by_name("allow_dots").click()
     driver.find_element_by_id("quick_submit").click()
     main = WebDriverWait(driver, 10).until(
@@ -43,6 +47,7 @@ def get_website_info():
                        data.get('birth_year') + ' ' + \
                        data.get('likes')
 
+    driver.close()
     return data
 
 

@@ -64,11 +64,14 @@ class Accounts:
         self.cur.execute(f'SELECT * FROM {self.table};')
         print(self.cur.fetchall())
 
+    def display_all(self):
+        pass
+
 
 if __name__ == "__main__":
     test = Accounts()
     #test.add_account(get_website_info())
     test.dis_all()
-    test.remove_account(3, test.retrieve_info(3, 'password'))
+    test.remove_account(2, test.retrieve_info(2, 'password'))
     test.dis_all()
 

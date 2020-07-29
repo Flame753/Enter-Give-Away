@@ -1,4 +1,5 @@
 import time
+import accounts
 from geninfo import get_website_info
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -15,7 +16,7 @@ def create_gmail(data, phone_number):
     # Waiting until see something on page
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.ID, "view_container")))
-
+    time.sleep(1)
     # Entering all the Information into the Google Account to Create Account
     fields = {'firstName': 'first_name', 'lastName': 'surname', 'username': 'username',
               'Passwd': 'password', 'ConfirmPasswd': 'password'}
@@ -25,8 +26,15 @@ def create_gmail(data, phone_number):
             search = driver.find_element_by_name(field)
         else:
             search = driver.find_element_by_id(field)
+        search.click()
         search.send_keys(data.get(value))
         search.send_keys(Keys.RETURN)
+        time.sleep(1)
+
+    # Added the Data to the Database
+    database = accounts.Accounts()
+    database.add_account(data)
+    database.dis_all()
 
     # Waiting until its verification page is loaded and enters phone number
     WebDriverWait(driver, 10).until(
@@ -36,7 +44,11 @@ def create_gmail(data, phone_number):
     search.send_keys(phone_number)
     search.send_keys(Keys.RETURN)
 
+    while True:
+        if input():
+            break
+    driver.close()
+
 
 if __name__ == "__main__":
-    create_gmail(get_website_info(), 742)
-
+    create_gmail(get_website_info(), 5857056474)
