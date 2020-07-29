@@ -31,11 +31,6 @@ def create_gmail(data, phone_number):
         search.send_keys(Keys.RETURN)
         time.sleep(1)
 
-    # Added the Data to the Database
-    database = accounts.Accounts()
-    database.add_account(data)
-    database.display_all()
-
     # Waiting until its verification page is loaded and enters phone number
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.ID, "view_container")))

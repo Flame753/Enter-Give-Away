@@ -19,6 +19,8 @@ class Accounts:
                          'surname TEXT, '
                          'gender TEXT, '
                          'birth_year INTEGER, '
+                         'birth_month INTEGER, '
+                         'birth_day INTEGER, '
                          'adj1 TEXT, '
                          'adj2 TEXT, '
                          'location TEXT, '
