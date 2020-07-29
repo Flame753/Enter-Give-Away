@@ -34,7 +34,7 @@ def create_gmail(data, phone_number):
     # Added the Data to the Database
     database = accounts.Accounts()
     database.add_account(data)
-    database.dis_all()
+    database.display_all()
 
     # Waiting until its verification page is loaded and enters phone number
     WebDriverWait(driver, 10).until(
@@ -51,4 +51,4 @@ def create_gmail(data, phone_number):
 
 
 if __name__ == "__main__":
-    create_gmail(get_website_info(), 5857056474)
+    create_gmail(get_website_info(), 0)

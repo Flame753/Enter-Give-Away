@@ -9,6 +9,7 @@ class Accounts:
 
         # define connection and cursor
         self.conn = sqlite3.connect(self.name)
+        self.conn.row_factory = sqlite3.Row  # Away to display in dic()
         self.cur = self.conn.cursor()
         # Create a Table
         self.cur.execute(f'CREATE TABLE IF NOT EXISTS {self.table}('
@@ -43,6 +44,14 @@ class Accounts:
         except TypeError:
             print(f"Database doesn't contain ID: {id} or Field: {kind}")
 
+    def retrieve_all(self):
+        self.cur.execute(f'SELECT * FROM {self.table};')
+        rows = self.cur.fetchall()
+        all_data = []
+        for row in rows:
+            all_data.append(dict(row))
+        return all_data
+
     def update_info(self, id, kind, value):
         try:
             if kind == 'id':
@@ -60,18 +69,18 @@ class Accounts:
         self.conn.commit()
         self.cur.close()
 
-    def dis_all(self):  # For Testing
-        self.cur.execute(f'SELECT * FROM {self.table};')
-        print(self.cur.fetchall())
-
     def display_all(self):
-        pass
+        self.cur.execute(f'SELECT * FROM {self.table};')
+        rows = self.cur.fetchall()
+        for row in rows:
+            print(dict(row))
 
 
 if __name__ == "__main__":
     test = Accounts()
     #test.add_account(get_website_info())
-    test.dis_all()
-    test.remove_account(2, test.retrieve_info(2, 'password'))
-    test.dis_all()
+    #print(test.retrieve_info(1, 'first_name'))
+    #test.display_all()
+    print(test.retrieve_all())
+
 
